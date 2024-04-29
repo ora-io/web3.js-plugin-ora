@@ -1,9 +1,11 @@
 import { Web3, core } from "web3";
 import { Models, ORAPlugin, PromptAddresses } from "../src";
+import dotenv from "dotenv"
+dotenv.config();
 
 describe("TemplatePlugin Tests", () => {
   it("should register TemplatePlugin plugin on Web3Context instance", () => {
-    const web3Context = new core.Web3Context("http://127.0.0.1:8545");
+    const web3Context = new core.Web3Context(process.env.RPC_URL);
     web3Context.registerPlugin(new ORAPlugin());
     expect(web3Context.ora).toBeDefined();
   });
@@ -14,7 +16,7 @@ describe("TemplatePlugin Tests", () => {
     let web3: Web3;
 
     beforeAll(() => {
-      web3 = new Web3("http://127.0.0.1:8545");
+      web3 = new Web3(process.env.RPC_URL);
       web3.registerPlugin(new ORAPlugin());
       web3.ora.requestManager.send = requestManagerSendSpy;
     });
