@@ -4,7 +4,7 @@
   "description": "Template plugin to extend web3.js with additional methods",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
-  "type": "module",
+
   "homepage": "https://github.com/web3/web3.js-plugin-template#readme",
   "bugs": {
     "url": "https://github.com/web3/web3.js-plugin-template/issues"

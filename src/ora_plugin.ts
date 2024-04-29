@@ -18,7 +18,7 @@ export class ORAPlugin extends Web3PluginBase {
   public async getAIResult(
     promptAddress: PromptAddresses,
     modelId: Models,
-    prompt: string
+    prompt: string,
     promptAbi: ContractAbi = this.defaultPromptAbi,
   ) {
 
@@ -48,6 +48,6 @@ export class ORAPlugin extends Web3PluginBase {
 // Module Augmentation
 declare module 'web3' {
   interface Web3Context {
-    template: ORAPlugin;
+    ora: ORAPlugin;
   }
 }

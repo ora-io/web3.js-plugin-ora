@@ -305,4 +305,4 @@ export const PromptABI = [
       "stateMutability": "nonpayable",
       "type": "function"
     }
-  ]
+  ] as const
