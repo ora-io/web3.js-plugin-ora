@@ -1,4 +1,4 @@
-# Web3.js Chainlink Plugin
+# Web3.js ORA Plugin
 
 ![ES Version](https://img.shields.io/badge/ES-2020-yellow)
 ![Node Version](https://img.shields.io/badge/node-18.x-green)
