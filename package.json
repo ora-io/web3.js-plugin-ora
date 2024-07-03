@@ -1,5 +1,5 @@
 {
-  "name": "web3-plugin-template",
+  "name": "web3-plugin-ora",
   "version": "1.0.0",
   "description": "Template plugin to extend web3.js with additional methods",
   "main": "lib/index.js",
@@ -11,7 +11,7 @@
   },
   "scripts": {
     "lint": "eslint '{src,test}/**/*.ts'",
-    "build": "tsc --project tsconfig.build.json",
+    "build": "tsc --build",
     "test": "jest --config=./test/jest.config.js"
   },
   "contributors": [
@@ -20,7 +20,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git@github.com:web3/web3.js-plugin-template.git"
+    "url": "git@github.com:hadzija7/web3.js-plugin-ora.git"
   },
   "dependencies": {
     "dotenv": "^16.4.5"
