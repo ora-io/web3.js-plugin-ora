@@ -2,7 +2,6 @@
 
 ![ES Version](https://img.shields.io/badge/ES-2020-yellow)
 ![Node Version](https://img.shields.io/badge/node-18.x-green)
-[![NPM Package][npm-image]][npm-url]
 
 This is a [web3.js](https://github.com/web3/web3.js) `4.x` plugin for interacting with ORA Ethereum contracts.
 
