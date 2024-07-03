@@ -1,5 +1,5 @@
 {
-  "name": "web3-plugin-ora",
+  "name": "web3-plugin-ora-2",
   "version": "1.0.0",
   "description": "Template plugin to extend web3.js with additional methods",
   "main": "lib/index.js",

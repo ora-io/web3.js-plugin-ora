@@ -19,9 +19,7 @@
 		"strictNullChecks": true,
 		"outDir": "lib",
 		"esModuleInterop": true,
-		// "allowImportingTsExtensions": true,
-		// "noEmit": true,
 	},
-	"include": ["src", "test"],
-	"exclude": ["node_modules"],
+	"include": ["src"],
+	"exclude": ["node_modules", "test"],
 }
