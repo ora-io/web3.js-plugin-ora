@@ -1,26 +1,31 @@
 {
-  "name": "web3-plugin-ora-2",
-  "version": "1.0.0",
-  "description": "Template plugin to extend web3.js with additional methods",
+  "name": "@ora-io/web3-plugin-ora",
+  "version": "0.0.1",
+  "description": "ORA's plugin to extend web3.js with additional methods for interaction with Onchain AI Oracle",
+  "author": "Aleks (hadzija7)",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
-
-  "homepage": "https://github.com/web3/web3.js-plugin-template#readme",
+  "homepage": "https://github.com/ora-io/web3.js-plugin-ora",
   "bugs": {
-    "url": "https://github.com/web3/web3.js-plugin-template/issues"
+    "url": "https://github.com/ora-io/web3.js-plugin-ora/issues"
   },
+  "keywords": [
+    "oao",
+    "api",
+    "ora"
+  ],
   "scripts": {
     "lint": "eslint '{src,test}/**/*.ts'",
     "build": "tsc --build",
     "test": "jest --config=./test/jest.config.js"
   },
   "contributors": [
-    "ChainSafe <info@chainsafe.io>"
+    "ORA <ora.io>"
   ],
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git@github.com:hadzija7/web3.js-plugin-ora.git"
+    "url": "https://github.com/ora-io/web3.js-plugin-ora"
   },
   "dependencies": {
     "dotenv": "^16.4.5"

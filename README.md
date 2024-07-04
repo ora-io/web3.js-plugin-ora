@@ -14,7 +14,7 @@ This is a [web3.js](https://github.com/web3/web3.js) `4.x` plugin for interactin
 ## Installation
 
 ```bash
-yarn add @ora/web3.js-ora-plugin
+yarn add @ora-io/web3-plugin-ora
 ```
 
 ## Using this plugin
@@ -39,10 +39,10 @@ To verify you have the correct `web3` version installed, after adding the packag
 
 ### Registering the Plugin with a web3.js Instance
 
-After importing `ORAPlugin` from `@ora/web3-plugin-ora` and `Web3` from `web3`, register an instance of `ORAPlugin` with an instance of `Web3` like so:
+After importing `ORAPlugin` from `@ora-io/web3-plugin-ora` and `Web3` from `web3`, register an instance of `ORAPlugin` with an instance of `Web3` like so:
 
 ```typescript
-import { ORAPlugin } from '@ora/web3-plugin-ora';
+import { ORAPlugin } from '@ora-io/web3-plugin-ora';
 import { Web3 } from 'web3';
 
 const web3 = new Web3('YOUR_PROVIDER_URL');
@@ -70,18 +70,18 @@ public async getAIResult(
 }
 ```
 
-`defaultPromptAbi` can be found [here](https://github.com/hadzija7/web3.js-plugin-ora/blob/master/src/prompt_abi.ts).
+`defaultPromptAbi` can be found [here](https://github.com/ora-io/web3.js-plugin-ora/blob/master/src/prompt_abi.ts).
 
 The `getAIResult` accepts several inputs:
 - `promptAddress` - tells plugin which prompt contract to interact with
 - `modelId` - speficies the AI model which will return inference results
 - `prompt` - user prompt string for the inference call
-- `promptAbi` optional parameter for specifying prompt contract ABI (this parameter is defaulted to [defaultPromptAbi](https://github.com/hadzija7/web3.js-plugin-ora/blob/master/src/prompt_abi.ts)).
+- `promptAbi` optional parameter for specifying prompt contract ABI (this parameter is defaulted to [defaultPromptAbi](https://github.com/ora-io/web3.js-plugin-ora/blob/master/src/prompt_abi.ts)).
 
 Under the hood, this method is calling the `getAIResult` on the Prompt contract for the specified model and prompt. Tutorial on how to interact with ORA's Onchain AI Oracle can be found [here](https://docs.ora.io/doc/oao-onchain-ai-oracle/develop-guide/tutorials/interaction-with-oao-tutorial).
 
 ```typescript
-import { ORAPlugin, PromptAddresses, Models } from '@ora/web3-plugin-ora';
+import { ORAPlugin, PromptAddresses, Models } from '@ora-io/web3-plugin-ora';
 import { Web3 } from 'web3';
 
 const web3 = new Web3('YOUR_PROVIDER_URL');
@@ -95,7 +95,7 @@ console.log(inferenceResult)
 
 ## Found an issue or have a question or suggestion
 
--   If you found an issue or have a question or suggestion [submit an issue](https://github.com/hadzija7/web3.js-plugin-ora/issues) or join us on [Discord](https://discord.gg/fg5ygkgy)
+-   If you found an issue or have a question or suggestion [submit an issue](https://github.com/ora-io/web3.js-plugin-ora/issues) or join us on [Discord](https://discord.gg/fg5ygkgy)
 
 ## Run the tests
 
