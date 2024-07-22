@@ -88,7 +88,7 @@ const oraPlugin = new ORAPlugin();
 
 web3.registerPlugin(oraPlugin);
 
-const inferenceResult = await web3.ora.getAIResult(PromptAddresses.MAINNET, Models.STABLE_DIFFUSION, "Generate image of btc");
+const inferenceResult = await web3.ora.getAIResult(PromptAddresses.MAINNET, Models.STABLE_DIFFUSION, "llama test");
 console.log(inferenceResult)
 ```
 
