@@ -89,8 +89,10 @@ const oraPlugin = new ORAPlugin();
 web3.registerPlugin(oraPlugin);
 
 const inferenceResult = await web3.ora.getAIResult(PromptAddresses.MAINNET, Models.STABLE_DIFFUSION, "llama test");
-console.log(inferenceResult)
+console.log("Inference result (CID on ipfs): ", inferenceResult)
 ```
+
+In this example inferenceResult is a CID of an image stored on ipfs. You can check generated image here: https://ipfs.io/ipfs/QmehED9EuL6EkNZ22XDMS5tBVQ1698jt13HqjfYWq8FWTu
 
 ## Found an issue or have a question or suggestion
 
