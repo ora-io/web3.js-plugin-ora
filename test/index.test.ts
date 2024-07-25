@@ -3,50 +3,40 @@ import { Models, ORAPlugin, PromptAddresses } from "../src";
 import dotenv from "dotenv"
 dotenv.config();
 
+jest.setTimeout(15000);
 describe("TemplatePlugin Tests", () => {
+  let acc: any;
+
   it("should register TemplatePlugin plugin on Web3Context instance", () => {
     const web3Context = new core.Web3Context(process.env.RPC_URL);
-    web3Context.registerPlugin(new ORAPlugin());
+    web3Context.registerPlugin(new ORAPlugin(PromptAddresses.SEPOLIA));
     expect(web3Context.ora).toBeDefined();
   });
 
   describe("TemplatePlugin method tests", () => {
-    const requestManagerSendSpy = jest.fn();
-
     let web3: Web3;
 
     beforeAll(() => {
       web3 = new Web3(process.env.RPC_URL);
-      web3.registerPlugin(new ORAPlugin());
-      web3.ora.requestManager.send = requestManagerSendSpy;
+      web3.registerPlugin(new ORAPlugin(PromptAddresses.SEPOLIA));
+      acc = web3.eth.accounts.privateKeyToAccount(process.env.PRIVATE_KEY ? process.env.PRIVATE_KEY : "")
+      web3.eth.accounts.wallet.add(acc);
+    });
+
+    it('should fetch the latest block number', async function () {
+        const blockNumber = await web3.eth.getBlockNumber();
+        console.log('Latest block number:', blockNumber);
+        expect(blockNumber > 0);
     });
 
     it("should call TempltyPlugin test method with expected param", async () => {
-      const inputs = [
-        {
-          "internalType": "uint256",
-          "name": "modelId",
-          "type": "uint256"
-        },
-        {
-          "internalType": "string",
-          "name": "prompt",
-          "type": "string"
-        }
-      ]
-      const encodedFunctionCall = web3.eth.abi.encodeFunctionCall({ name: 'getAIResult', type: 'function', inputs: inputs }, [Models.STABLE_DIFFUSION, "Generate image of btc"]);
-
-      await web3.ora.getAIResult(PromptAddresses.MAINNET, Models.STABLE_DIFFUSION, "Generate image of btc");
-      expect(requestManagerSendSpy).toHaveBeenCalledWith({
-        method: 'eth_call',
-				params: [
-					{
-            input: encodedFunctionCall,
-						to: PromptAddresses.MAINNET,
-					},
-					'latest',
-				],
-      })
+      const result = await web3.ora.getAIResult(Models.STABLE_DIFFUSION, "generate some nice picture");
+      expect(result).toBe("QmcpZuEv4LnNNLL4VVMW3ydxZkrdwJFuKkFnSQN27ZfQAY")
     });
+
+    it('request AI inference', async () => {
+      const estimatedFee = await web3.ora.estimateFee(Models.STABLE_DIFFUSION);
+      await web3.ora.calculateAIResult(acc.address, Models.STABLE_DIFFUSION, "generate some nice picture", Number(estimatedFee).toString())
+    })
   });
 });
