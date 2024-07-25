@@ -137,7 +137,7 @@ web3.eth.accounts.wallet.add(acc);
 const PROMPT = "Generate image of an alien that explores the world"
 
 const estimatedFee = await web3.ora.estimateFee(Models.STABLE_DIFFUSION);
-console.log("Estimate fee: ", estimatedFee)
+console.log("Estimated fee: ", estimatedFee)
 await web3.ora.calculateAIResult(acc.address, Models.STABLE_DIFFUSION, PROMPT, Number(estimatedFee).toString())
 
 setTimeout(async () => {
