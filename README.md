@@ -36,19 +36,28 @@ To verify you have the correct `web3` version installed, after adding the packag
 }
 ```
 
+### Configure .env file
+
+In order to interact with the blockchain through web3js plugin you need to setup environment variables. To do that, copy `.env.example` into `.env` and add values for `PRIVATE_KEY` and `RPC_URL`.
+
 ### Registering the Plugin with a web3.js Instance
 
 After importing `ORAPlugin` from `@ora-io/web3-plugin-ora` and `Web3` from `web3`, register an instance of `ORAPlugin` with an instance of `Web3` like so:
 
 ```typescript
-import { ORAPlugin } from '@ora-io/web3-plugin-ora';
 import { Web3 } from 'web3';
+import dotenv from 'dotenv';
+import {Models, ORAPlugin, PromptAddresses} from '@ora-io/web3-plugin-ora';
 
-const web3 = new Web3('YOUR_PROVIDER_URL');
-const oraPlugin = new ORAPlugin();
+dotenv.config();
+
+const web3 = new Web3(process.env.RPC_URL);
+const oraPlugin = new ORAPlugin(PromptAddresses.SEPOLIA);
 
 web3.registerPlugin(oraPlugin);
 ```
+
+
 
 More information about registering web3.js plugins can be found [here](https://docs.web3js.org/docs/guides/web3_plugin_guide/plugin_users#registering-the-plugin).
 
@@ -56,43 +65,97 @@ More information about registering web3.js plugins can be found [here](https://d
 
 ORAPlugin supports method for getting AI inference results from all supported chains. When interacting with the plugin, users need to specify which chain to interact with.
 
+#### `estimateFee`
+
+```typescript
+public async estimateFee(
+    modelId: Models
+)
+```
+`estimateFee` method is used to determine amount of wei necessary for oracle to execute callback and return inference result. Estimated fee is passed as a value for `calculateAIResult` function call.
+
+**Input:**
+- `modelId` - specifies AI model for fee estimation
+
+#### `calculateAIResult`
+
+```typescript
+public async calculateAIResult(
+    from: string,
+    modelId: Models,
+    prompt: string,
+    estimatedFee: string,
+)
+```
+
+`calculateAIResult` interacts with Onchain AI Oracle (OAO), requesting AI inference.
+
+**Input:**
+- `from` - specifies the sender of the transaction (connected wallet address)
+- `modelId` - id of the AI model that should be called
+- `prompt` - custom prompt for inference request
+- `estimatedFee` - result of `estimateFee` method
+
+
 #### `getAIResult`
 
 ```typescript
 public async getAIResult(
-    promptAddress: PromptAddresses,
     modelId: Models,
-    prompt: string,
-    promptAbi: ContractAbi = this.defaultPromptAbi,
-): {
-    result: string
-}
+    prompt: string
+)
 ```
 
-`defaultPromptAbi` can be found [here](https://github.com/ora-io/web3.js-plugin-ora/blob/master/src/prompt_abi.ts).
+`getAIResult` is used to query inference result for the specific prompt and modelId.
 
-The `getAIResult` accepts several inputs:
-- `promptAddress` - tells plugin which prompt contract to interact with
+**Inputs:**
+
 - `modelId` - speficies the AI model which will return inference results
 - `prompt` - user prompt string for the inference call
-- `promptAbi` optional parameter for specifying prompt contract ABI (this parameter is defaulted to [defaultPromptAbi](https://github.com/ora-io/web3.js-plugin-ora/blob/master/src/prompt_abi.ts)).
 
-Under the hood, this method is calling the `getAIResult` on the Prompt contract for the specified model and prompt. Tutorial on how to interact with ORA's Onchain AI Oracle can be found [here](https://docs.ora.io/doc/oao-onchain-ai-oracle/develop-guide/tutorials/interaction-with-oao-tutorial).
+Under the hood, this method is calling the `getAIResult` on the Prompt contract for the specified model and prompt.
+
+### Sample code to interact with OAO
+
+ Tutorial on how to interact with ORA's Onchain AI Oracle can be found [here](https://docs.ora.io/doc/oao-onchain-ai-oracle/develop-guide/tutorials/interaction-with-oao-tutorial).
 
 ```typescript
-import { ORAPlugin, PromptAddresses, Models } from '@ora-io/web3-plugin-ora';
 import { Web3 } from 'web3';
+import dotenv from 'dotenv';
+import {Models, ORAPlugin, PromptAddresses} from '@ora-io/web3-plugin-ora';
 
-const web3 = new Web3('YOUR_PROVIDER_URL');
-const oraPlugin = new ORAPlugin();
+dotenv.config();
 
+const web3 = new Web3(process.env.RPC_URL);
+
+const oraPlugin = new ORAPlugin(PromptAddresses.SEPOLIA);
 web3.registerPlugin(oraPlugin);
 
-const inferenceResult = await web3.ora.getAIResult(PromptAddresses.MAINNET, Models.STABLE_DIFFUSION, "llama test");
-console.log("Inference result (CID on ipfs): ", inferenceResult)
+const acc = web3.eth.accounts.privateKeyToAccount(process.env.PRIVATE_KEY ? process.env.PRIVATE_KEY : "")
+web3.eth.accounts.wallet.add(acc);
+
+const PROMPT = "Generate image of an alien that explores the world"
+
+const estimatedFee = await web3.ora.estimateFee(Models.STABLE_DIFFUSION);
+console.log("Estimate fee: ", estimatedFee)
+await web3.ora.calculateAIResult(acc.address, Models.STABLE_DIFFUSION, PROMPT, Number(estimatedFee).toString())
+
+setTimeout(async () => {
+    const inferenceResult = await web3.ora.getAIResult(Models.STABLE_DIFFUSION, PROMPT);
+    console.log("Inference result: ", inferenceResult)
+}, 20000);
 ```
 
-In this example inferenceResult is a CID of an image stored on ipfs. You can check generated image here: https://ipfs.io/ipfs/QmehED9EuL6EkNZ22XDMS5tBVQ1698jt13HqjfYWq8FWTu
+To interact with ORA's web3js plugin you need to follow next steps:
+1. register ORA plugin to web3js
+2. add wallet to web3js context, in order to sign blockchain transactions
+3. estimate fee for the OAO callback (`estimateFee`)
+4. initiate inference request (`calculateAIResult`)
+5. check the inference result (`getAIResult`)
+
+In this example we interacted with StableDiffusion model, hence the result is a CID of an image stored on ipfs. You can check generated image here: https://ipfs.io/ipfs/QmbaJs2fcbr4dfD5Mf8pJu7xvheGbQEksRtVN4ryEL8THp
+
+You can experiment by changing modelId and prompt to get different inferences from all supported models.
 
 ## Found an issue or have a question or suggestion
 
@@ -109,7 +172,7 @@ warning package-lock.json found. Your project contains lock files generated by t
 ```
 
 3. Run the tests:
- - `yarn test`: Runs the mocked tests that do not make a network request using the [Jest](https://jestjs.io/) framework
+ - `yarn test`: Runs test against the network specified by RPC_URL
    
 ## Useful links
 
