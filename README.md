@@ -108,7 +108,7 @@ ORAPlugin supports method for getting AI inference results from all supported ch
  * @param modelId specifies AI model for fee estimation
  */
 
-web3.ora.estimateFee(modelId: Models)
+await web3.ora.estimateFee(Models.STABLE_DIFFUSION || Models.LLAMA2 || Models.OPENLM);
 // => Returns BigInt
 ```
 
@@ -138,7 +138,7 @@ await web3.ora.calculateAIResult(wallet[0].address, Models.STABLE_DIFFUSION, PRO
  * @param prompt user prompt string for the inference call
  */
 
-const result = await web3.ora.getAIResult(Models.STABLE_DIFFUSION, PROMPT);
+await web3.ora.getAIResult(Models.STABLE_DIFFUSION, PROMPT);
 // => Returns String with the ORA AI result
 ```
 
