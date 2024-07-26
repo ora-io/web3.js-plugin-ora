@@ -44,7 +44,6 @@ This section will help you get started with utilizing OAO in your smart contract
 
 In this example we will interact with the ORA contract deployed in the Sepolia network.
 
-> **_NOTE_**  
 > [here](https://github.com/ora-io/web3.js-plugin-ora/blob/master/src/types.ts) you can find other available networks
 
 ```ts
