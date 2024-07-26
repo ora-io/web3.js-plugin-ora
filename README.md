@@ -13,23 +13,21 @@ This is a [web3.js](https://github.com/web3/web3.js) `4.x` plugin for interactin
 ## Installation
 
 ```bash
-yarn add web3
-```
-
-Or
-
-```bash
 npm i web3
 ```
 
 ```bash
-yarn add @ora-io/web3-plugin-ora
+npm i @ora-io/web3-plugin-ora
 ```
 
 Or
 
 ```bash
-npm i @ora-io/web3-plugin-ora
+yarn add web3
+```
+
+```bash
+yarn add @ora-io/web3-plugin-ora
 ```
 
 ## Getting started
@@ -46,9 +44,8 @@ This section will help you get started with utilizing OAO in your smart contract
 
 In this example we will interact with the ORA contract deployed in the Sepolia network.
 
-:::Info
-[here](https://github.com/ora-io/web3.js-plugin-ora/blob/master/src/types.ts) you can find other available networks
-:::
+> **_NOTE_**  
+> [here](https://github.com/ora-io/web3.js-plugin-ora/blob/master/src/types.ts) you can find other available networks
 
 ```ts
 import { Web3 } from "web3";
