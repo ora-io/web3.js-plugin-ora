@@ -53,10 +53,10 @@ import { Models, ORAPlugin, PromptAddresses } from "@ora-io/web3-plugin-ora";
 // Initialize RPC endpoint (in this case with Sepolia Testnet)
 const web3 = new Web3("https://1rpc.io/sepolia");
 
-// Step 1: Register the ORAPlugin to the web3.js context pointint to the Sepolia Testnet network
+// Step 1: Register the ORAPlugin to the web3.js context pointing to the Sepolia Testnet network
 web3.registerPlugin(new ORAPlugin(PromptAddresses.SEPOLIA));
 
-// Step 2: Add private key to initialize a wallet
+// Step 2: Add private key to initialize a wallet (note: NEVER PUSH/SHOW your private key)
 const wallet = web3.eth.accounts.wallet.add("PRIVATE_KEY"); // Make sure you have funds
 
 async function main() {
@@ -71,11 +71,14 @@ async function main() {
   const tx = await web3.ora.calculateAIResult(wallet[0].address, Models.STABLE_DIFFUSION, PROMPT, estimatedFee);
   //console.log(tx);
   //→ Transaction receipt
+  console.log("Oracle is generating result...")
 
-  // Step 5: Fetch the result
-  const result = await web3.ora.getAIResult(Models.STABLE_DIFFUSION, PROMPT);
-  console.log("Inference result: ", result);
-  //→ Inference result:  QmQkxg31E9b8mCMAW8j2LYB46LM8ghExbXrQHob26WLos1
+  // Step 5: Fetch the result (note: we are waiting 25s before fetching, to be sure that oracle returned the result)
+  setTimeout(async () => {
+      const result = await web3.ora.getAIResult(Models.STABLE_DIFFUSION, PROMPT);
+      console.log("Inference result: ", result);
+      //→ Inference result:  QmQkxg31E9b8mCMAW8j2LYB46LM8ghExbXrQHob26WLos1
+  }, 30000);
 }
 
 main();
