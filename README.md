@@ -73,7 +73,7 @@ async function main() {
   //→ Transaction receipt
   console.log("Oracle is generating result...")
 
-  // Step 5: Fetch the result (note: we are waiting 25s before fetching, to be sure that oracle returned the result)
+  // Step 5: Fetch the result (note: we are waiting 30s before fetching, to be sure that oracle returned the result)
   setTimeout(async () => {
       const result = await web3.ora.getAIResult(Models.STABLE_DIFFUSION, PROMPT);
       console.log("Inference result: ", result);
