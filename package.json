@@ -1,6 +1,6 @@
 {
   "name": "@ora-io/web3-plugin-ora",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "ORA's plugin to extend web3.js with additional methods for interaction with Onchain AI Oracle",
   "author": "Aleks (hadzija7)",
   "main": "lib/index.js",

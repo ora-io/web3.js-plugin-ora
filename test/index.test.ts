@@ -1,5 +1,5 @@
 import { Web3, core } from "web3";
-import { Models, ORAPlugin, PromptAddresses } from "../src";
+import { Models, ORAPlugin, Chain } from "../src";
 import dotenv from "dotenv"
 dotenv.config();
 
@@ -9,7 +9,7 @@ describe("TemplatePlugin Tests", () => {
 
   it("should register TemplatePlugin plugin on Web3Context instance", () => {
     const web3Context = new core.Web3Context(process.env.RPC_URL);
-    web3Context.registerPlugin(new ORAPlugin(PromptAddresses.SEPOLIA));
+    web3Context.registerPlugin(new ORAPlugin(Chain.SEPOLIA));
     expect(web3Context.ora).toBeDefined();
   });
 
@@ -18,7 +18,7 @@ describe("TemplatePlugin Tests", () => {
 
     beforeAll(() => {
       web3 = new Web3(process.env.RPC_URL);
-      web3.registerPlugin(new ORAPlugin(PromptAddresses.SEPOLIA));
+      web3.registerPlugin(new ORAPlugin(Chain.SEPOLIA));
       acc = web3.eth.accounts.privateKeyToAccount(process.env.PRIVATE_KEY ? process.env.PRIVATE_KEY : "")
       web3.eth.accounts.wallet.add(acc);
     });

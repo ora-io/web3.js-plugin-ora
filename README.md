@@ -48,13 +48,13 @@ In this example we will interact with the ORA contract deployed in the Sepolia n
 
 ```ts
 import { Web3 } from "web3";
-import { Models, ORAPlugin, PromptAddresses } from "@ora-io/web3-plugin-ora";
+import { Models, ORAPlugin, Chain } from "@ora-io/web3-plugin-ora";
 
 // Initialize RPC endpoint (in this case with Sepolia Testnet)
 const web3 = new Web3("https://1rpc.io/sepolia");
 
 // Step 1: Register the ORAPlugin to the web3.js context pointing to the Sepolia Testnet network
-web3.registerPlugin(new ORAPlugin(PromptAddresses.SEPOLIA));
+web3.registerPlugin(new ORAPlugin(Chain.SEPOLIA));
 
 // Step 2: Add private key to initialize a wallet (note: NEVER PUSH/SHOW your private key)
 const wallet = web3.eth.accounts.wallet.add("PRIVATE_KEY"); // Make sure you have funds
