@@ -29,6 +29,6 @@ export enum SimplePromptAddresses {
 
 export enum Models {
     STABLE_DIFFUSION = 50,
-    LLAMA2 = 11,
+    LLAMA3 = 11,
     OPENLM = 13
 }

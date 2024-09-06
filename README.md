@@ -111,7 +111,7 @@ ORAPlugin supports method for getting AI inference results from all supported ch
  * @param modelId specifies AI model for fee estimation
  */
 
-await web3.ora.estimateFee(Models.STABLE_DIFFUSION || Models.LLAMA2 || Models.OPENLM);
+await web3.ora.estimateFee(Models.STABLE_DIFFUSION || Models.LLAMA3 || Models.OPENLM);
 // => Returns BigInt
 ```
 
